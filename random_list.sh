@@ -1,7 +1,13 @@
 #!/bin/bash
+#
+# Random Music List
+#
+# Author: Pablo M.
+# Email: pmopa@pm.me
+#
+# Version: 0.1
+###########################################################
 
-# Otra opcion
-# seq 1 5 | shuf
 
 x=12345
 for((i=5;i>0;i--));do
