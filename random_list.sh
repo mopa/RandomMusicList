@@ -5,25 +5,53 @@
 # Author: Pablo M.
 # Email: pmopa@pm.me
 #
-# Version: 0.1
+# Version: 0.5
 ###########################################################
 
 
-#x=12345
-#for((i=5;i>0;i--));do
-#  ((r=RANDOM%i+1))
-#  echo ${x:r-1:1}
-#  x=${x:0:r-1}${x:r}
-#done
+# Calculamos el numero de ficheros
+i=0
 
-
-range=10
-
-
-for ((i=0; i<=$range; i++));
-do
-  n=$((1 + RANDOM % $range))
-
-  prev[n]=1
-  echo $prev
+for file in *.mp3; do
+  ((i++))
 done
+
+range=$i
+
+# Iniciamos el contador 
+# Generamos el primer numero aleatorio
+# Iniciamos el array
+j=0
+number="$((($RANDOM % $range) + 1))"
+
+declare -a narr
+
+
+# Hacemos un bucle en el que almacenamos los numeros aleatorios
+# generados en el array. Comprobamos que no esten repetidos
+# y añadimos el numero generado al principio del nombre del fihero
+for file in *.mp3; do
+  narr[$j]=$number
+  mv "$file" "$number-$file"
+
+  # Comprobacion de que este repetido el numero
+  while [[ ${narr[*]} =~ $number ]]; do
+    
+    number="$(($RANDOM % $range))"
+ 
+    # Paramos el bucle en caso de haber llegado el limite 
+    if [[ ${#narr[@]} == $range ]]; then
+      break
+    fi
+  done
+
+  ((j++))
+
+done
+
+
+# Vemos el contenido del array
+#echo ${narr[*]}
+
+# Comprobar longitud del array
+#echo ${#narr[@]}
